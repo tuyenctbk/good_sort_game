@@ -49,6 +49,56 @@ class GameConstants {
       Category('교통', Colors.teal),
       Category('장난감', Colors.amber),
     ],
+    'es': [
+      Category('Formas', Colors.orange),
+      Category('Colores', Colors.red),
+      Category('Números', Colors.blue),
+      Category('Letras', Colors.purple),
+      Category('Animales', Colors.green),
+      Category('Comida', Colors.pink),
+      Category('Transporte', Colors.teal),
+      Category('Juguetes', Colors.amber),
+    ],
+    'fr': [
+      Category('Formes', Colors.orange),
+      Category('Couleurs', Colors.red),
+      Category('Nombres', Colors.blue),
+      Category('Lettres', Colors.purple),
+      Category('Animaux', Colors.green),
+      Category('Nourriture', Colors.pink),
+      Category('Transport', Colors.teal),
+      Category('Jouets', Colors.amber),
+    ],
+    'de': [
+      Category('Formen', Colors.orange),
+      Category('Farben', Colors.red),
+      Category('Zahlen', Colors.blue),
+      Category('Buchstaben', Colors.purple),
+      Category('Tiere', Colors.green),
+      Category('Essen', Colors.pink),
+      Category('Verkehr', Colors.teal),
+      Category('Spielzeug', Colors.amber),
+    ],
+    'ja': [
+      Category('形', Colors.orange),
+      Category('色', Colors.red),
+      Category('数字', Colors.blue),
+      Category('文字', Colors.purple),
+      Category('動物', Colors.green),
+      Category('食べ物', Colors.pink),
+      Category('交通', Colors.teal),
+      Category('おもちゃ', Colors.amber),
+    ],
+    'ru': [
+      Category('Фигуры', Colors.orange),
+      Category('Цвета', Colors.red),
+      Category('Цифры', Colors.blue),
+      Category('Буквы', Colors.purple),
+      Category('Животные', Colors.green),
+      Category('Еда', Colors.pink),
+      Category('Транспорт', Colors.teal),
+      Category('Игрушки', Colors.amber),
+    ],
   };
 
   static const Map<String, Map<String, List<String>>> itemsByCategory = {
@@ -208,6 +258,308 @@ class GameConstants {
       '음식': ['사과', '바나나', '빵', '우유', '달걀', '쌀', '피자', '아이스크림'],
       '교통': ['자동차', '버스', '기차', '자전거', '비행기', '배', '트럭', '헬리콥터'],
       '장난감': ['공', '인형', '장난감 자동차', '테디베어', '블록', '퍼즐', '로봇', '연'],
+    },
+    'es': {
+      'Formas': [
+        'Círculo',
+        'Cuadrado',
+        'Triángulo',
+        'Rectángulo',
+        'Estrella',
+        'Corazón',
+        'Diamante',
+        'Óvalo'
+      ],
+      'Colores': [
+        'Rojo',
+        'Azul',
+        'Verde',
+        'Amarillo',
+        'Morado',
+        'Naranja',
+        'Rosa',
+        'Marrón'
+      ],
+      'Números': [
+        'Uno',
+        'Dos',
+        'Tres',
+        'Cuatro',
+        'Cinco',
+        'Seis',
+        'Siete',
+        'Ocho'
+      ],
+      'Letras': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+      'Animales': [
+        'Perro',
+        'Gato',
+        'Pájaro',
+        'Pez',
+        'León',
+        'Elefante',
+        'Jirafa',
+        'Pingüino'
+      ],
+      'Comida': [
+        'Manzana',
+        'Plátano',
+        'Pan',
+        'Leche',
+        'Huevo',
+        'Arroz',
+        'Pizza',
+        'Helado'
+      ],
+      'Transporte': [
+        'Coche',
+        'Autobús',
+        'Tren',
+        'Bicicleta',
+        'Avión',
+        'Barco',
+        'Camión',
+        'Helicóptero'
+      ],
+      'Juguetes': [
+        'Pelota',
+        'Muñeca',
+        'Coche',
+        'Osito',
+        'Bloques',
+        'Rompecabezas',
+        'Robot',
+        'Cometa'
+      ],
+    },
+    'fr': {
+      'Formes': [
+        'Cercle',
+        'Carré',
+        'Triangle',
+        'Rectangle',
+        'Étoile',
+        'Cœur',
+        'Diamant',
+        'Ovale'
+      ],
+      'Couleurs': [
+        'Rouge',
+        'Bleu',
+        'Vert',
+        'Jaune',
+        'Violet',
+        'Orange',
+        'Rose',
+        'Marron'
+      ],
+      'Nombres': [
+        'Un',
+        'Deux',
+        'Trois',
+        'Quatre',
+        'Cinq',
+        'Six',
+        'Sept',
+        'Huit'
+      ],
+      'Lettres': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+      'Animaux': [
+        'Chien',
+        'Chat',
+        'Oiseau',
+        'Poisson',
+        'Lion',
+        'Éléphant',
+        'Girafe',
+        'Pingouin'
+      ],
+      'Nourriture': [
+        'Pomme',
+        'Banane',
+        'Pain',
+        'Lait',
+        'Œuf',
+        'Riz',
+        'Pizza',
+        'Glace'
+      ],
+      'Transport': [
+        'Voiture',
+        'Bus',
+        'Train',
+        'Vélo',
+        'Avion',
+        'Bateau',
+        'Camion',
+        'Hélicoptère'
+      ],
+      'Jouets': [
+        'Balle',
+        'Poupée',
+        'Voiture',
+        'Nounours',
+        'Blocs',
+        'Puzzle',
+        'Robot',
+        'Cerf-volant'
+      ],
+    },
+    'de': {
+      'Formen': [
+        'Kreis',
+        'Quadrat',
+        'Dreieck',
+        'Rechteck',
+        'Stern',
+        'Herz',
+        'Raute',
+        'Oval'
+      ],
+      'Farben': [
+        'Rot',
+        'Blau',
+        'Grün',
+        'Gelb',
+        'Lila',
+        'Orange',
+        'Pink',
+        'Braun'
+      ],
+      'Zahlen': [
+        'Eins',
+        'Zwei',
+        'Drei',
+        'Vier',
+        'Fünf',
+        'Sechs',
+        'Sieben',
+        'Acht'
+      ],
+      'Buchstaben': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+      'Tiere': [
+        'Hund',
+        'Katze',
+        'Vogel',
+        'Fisch',
+        'Löwe',
+        'Elefant',
+        'Giraffe',
+        'Pinguin'
+      ],
+      'Essen': [
+        'Apfel',
+        'Banane',
+        'Brot',
+        'Milch',
+        'Ei',
+        'Reis',
+        'Pizza',
+        'Eis'
+      ],
+      'Verkehr': [
+        'Auto',
+        'Bus',
+        'Zug',
+        'Fahrrad',
+        'Flugzeug',
+        'Boot',
+        'LKW',
+        'Hubschrauber'
+      ],
+      'Spielzeug': [
+        'Ball',
+        'Puppe',
+        'Auto',
+        'Teddy',
+        'Bausteine',
+        'Puzzle',
+        'Roboter',
+        'Drachen'
+      ],
+    },
+    'ja': {
+      '形': ['円', '四角', '三角', '長方形', '星', 'ハート', 'ダイヤモンド', '楕円'],
+      '色': ['赤', '青', '緑', '黄', '紫', 'オレンジ', 'ピンク', '茶'],
+      '数字': ['一', '二', '三', '四', '五', '六', '七', '八'],
+      '文字': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+      '動物': ['犬', '猫', '鳥', '魚', 'ライオン', '象', 'キリン', 'ペンギン'],
+      '食べ物': ['りんご', 'バナナ', 'パン', '牛乳', '卵', '米', 'ピザ', 'アイスクリーム'],
+      '交通': ['車', 'バス', '電車', '自転車', '飛行機', '船', 'トラック', 'ヘリコプター'],
+      'おもちゃ': ['ボール', '人形', 'おもちゃの車', 'テディベア', 'ブロック', 'パズル', 'ロボット', '凧'],
+    },
+    'ru': {
+      'Фигуры': [
+        'Круг',
+        'Квадрат',
+        'Треугольник',
+        'Прямоугольник',
+        'Звезда',
+        'Сердце',
+        'Ромб',
+        'Овал'
+      ],
+      'Цвета': [
+        'Красный',
+        'Синий',
+        'Зелёный',
+        'Жёлтый',
+        'Фиолетовый',
+        'Оранжевый',
+        'Розовый',
+        'Коричневый'
+      ],
+      'Цифры': [
+        'Один',
+        'Два',
+        'Три',
+        'Четыре',
+        'Пять',
+        'Шесть',
+        'Семь',
+        'Восемь'
+      ],
+      'Буквы': ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж'],
+      'Животные': [
+        'Собака',
+        'Кошка',
+        'Птица',
+        'Рыба',
+        'Лев',
+        'Слон',
+        'Жираф',
+        'Пингвин'
+      ],
+      'Еда': [
+        'Яблоко',
+        'Банан',
+        'Хлеб',
+        'Молоко',
+        'Яйцо',
+        'Рис',
+        'Пицца',
+        'Мороженое'
+      ],
+      'Транспорт': [
+        'Машина',
+        'Автобус',
+        'Поезд',
+        'Велосипед',
+        'Самолёт',
+        'Корабль',
+        'Грузовик',
+        'Вертолёт'
+      ],
+      'Игрушки': [
+        'Мяч',
+        'Кукла',
+        'Машинка',
+        'Мишка',
+        'Кубики',
+        'Пазл',
+        'Робот',
+        'Воздушный змей'
+      ],
     },
   };
 
