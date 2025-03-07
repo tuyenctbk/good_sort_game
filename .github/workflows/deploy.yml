@@ -23,11 +23,18 @@ jobs:
         run: flutter pub get
         
       - name: Build web
-        run: flutter build web --release --base-href /good_sort_game/
+        run: |
+          flutter clean
+          flutter pub get
+          flutter build web --release --base-href /good_sort_game/
+        
+      - name: Check build output
+        run: ls -la build/web
         
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          branch: gh-pages
-          folder: build/web
-          clean: true 
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
+          force_orphan: true
+          commit_message: "Deploy Flutter web app" 
