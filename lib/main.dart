@@ -57,6 +57,49 @@ class LanguageSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          LanguageConstants.translations['en']!['appTitle']!,
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                offset: Offset(1, 1),
+                blurRadius: 2,
+                color: Colors.black26,
+              ),
+            ],
+          ),
+        ),
+        backgroundColor: Colors.blue.shade300,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.language),
+            onPressed: () async {
+              final selectedLanguage = await showDialog<Language>(
+                context: context,
+                builder: (context) => LanguageSelectionDialog(
+                  currentLanguageCode: 'en',
+                ),
+              );
+              if (selectedLanguage != null && selectedLanguage.code != 'en') {
+                if (context.mounted) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          TitleScreen(language: selectedLanguage),
+                    ),
+                  );
+                }
+              }
+            },
+          ),
+        ],
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -129,6 +172,56 @@ class LanguageSelectionScreen extends StatelessWidget {
   }
 }
 
+class LanguageSelectionDialog extends StatelessWidget {
+  final String currentLanguageCode;
+
+  const LanguageSelectionDialog({
+    super.key,
+    required this.currentLanguageCode,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(
+        LanguageConstants.translations[currentLanguageCode]!['chooseLanguage']!,
+        style: const TextStyle(color: Colors.blue),
+      ),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: LanguageConstants.supportedLanguages.map((language) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context, language);
+                },
+                style: ElevatedButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  backgroundColor: language.code == currentLanguageCode
+                      ? Colors.blue.shade100
+                      : Colors.white,
+                  foregroundColor: Colors.blue.shade700,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                child: Text(
+                  language.name,
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+}
+
 class TitleScreen extends StatelessWidget {
   final Language language;
 
@@ -137,6 +230,56 @@ class TitleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          LanguageConstants.translations[language.code]!['appTitle']!,
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                offset: Offset(1, 1),
+                blurRadius: 2,
+                color: Colors.black26,
+              ),
+            ],
+          ),
+        ),
+        backgroundColor: Colors.blue.shade300,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.language),
+            onPressed: () async {
+              final selectedLanguage = await showDialog<Language>(
+                context: context,
+                builder: (context) => LanguageSelectionDialog(
+                  currentLanguageCode: language.code,
+                ),
+              );
+              if (selectedLanguage != null &&
+                  selectedLanguage.code != language.code) {
+                if (context.mounted) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          TitleScreen(language: selectedLanguage),
+                    ),
+                  );
+                }
+              }
+            },
+          ),
+        ],
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -477,6 +620,29 @@ class _GameScreenState extends State<GameScreen>
           },
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.language),
+            onPressed: () async {
+              final selectedLanguage = await showDialog<Language>(
+                context: context,
+                builder: (context) => LanguageSelectionDialog(
+                  currentLanguageCode: widget.language.code,
+                ),
+              );
+              if (selectedLanguage != null &&
+                  selectedLanguage.code != widget.language.code) {
+                if (context.mounted) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          GameScreen(language: selectedLanguage),
+                    ),
+                  );
+                }
+              }
+            },
+          ),
           IconButton(
             icon: Icon(
               _soundManager.isMuted ? Icons.volume_off : Icons.volume_up,
