@@ -459,11 +459,34 @@ class _GameScreenState extends State<GameScreen>
     timeLeft = GameConstants.baseTimePerLevel;
     _startTimer();
 
+    // Get items for the current level and language
     final levelItems =
         GameConstants.getItemsForLevel(level, widget.language.code);
+
+    // Get categories for the current language, with fallback to English if not available
+    final languageCategories =
+        GameConstants.categoriesByLanguage[widget.language.code] ??
+            GameConstants.categoriesByLanguage['en']!;
+
+    // Map items to categories, with fallback to English category names if needed
     categories = levelItems
-        .map((item) => GameConstants.categoriesByLanguage[widget.language.code]!
-            .firstWhere((cat) => cat.name == item.category))
+        .map((item) {
+          try {
+            return languageCategories.firstWhere(
+              (cat) => cat.name == item.category,
+              orElse: () => languageCategories.firstWhere(
+                (cat) =>
+                    cat.name ==
+                    GameConstants.getItemsForLevel(level, 'en')
+                        .firstWhere((enItem) => enItem.name == item.name)
+                        .category,
+              ),
+            );
+          } catch (e) {
+            // If all else fails, use the first category as fallback
+            return languageCategories.first;
+          }
+        })
         .toSet()
         .toList();
 
