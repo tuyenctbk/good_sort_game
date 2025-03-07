@@ -137,46 +137,45 @@ class LanguageSelectionScreen extends StatelessWidget {
               const SizedBox(height: 40),
               SizedBox(
                 height: 400,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(16),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 2.0,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
                   itemCount: LanguageConstants.supportedLanguages.length,
                   itemBuilder: (context, index) {
                     final language =
                         LanguageConstants.supportedLanguages[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Transform.rotate(
-                        angle: sin(index * 0.2) *
-                            0.1, // Subtle rotation for visual interest
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    TitleScreen(language: language),
-                              ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 32, vertical: 20),
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.blue.shade700,
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
+                    return ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                TitleScreen(language: language),
                           ),
-                          child: Text(
-                            language.name,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.blue.shade700,
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
+                      ),
+                      child: Text(
+                        language.name,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     );
                   },
