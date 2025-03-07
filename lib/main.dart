@@ -145,48 +145,51 @@ class LanguageSelectionScreen extends StatelessWidget {
                     final crossAxisCount =
                         (constraints.maxWidth / itemWidth).floor().clamp(1, 4);
 
-                    return GridView.builder(
-                      padding: const EdgeInsets.all(16),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: crossAxisCount,
-                        childAspectRatio: 2.0,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                      ),
-                      itemCount: LanguageConstants.supportedLanguages.length,
-                      itemBuilder: (context, index) {
-                        final language =
-                            LanguageConstants.supportedLanguages[index];
-                        return ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    TitleScreen(language: language),
+                    return Scrollbar(
+                      thumbVisibility: true,
+                      child: GridView.builder(
+                        padding: const EdgeInsets.all(8),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount,
+                          childAspectRatio: 2.0,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                        ),
+                        itemCount: LanguageConstants.supportedLanguages.length,
+                        itemBuilder: (context, index) {
+                          final language =
+                              LanguageConstants.supportedLanguages[index];
+                          return ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      TitleScreen(language: language),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              backgroundColor: Colors.white,
+                              foregroundColor: Colors.blue.shade700,
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.blue.shade700,
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
                             ),
-                          ),
-                          child: Text(
-                            language.name,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                            child: Text(
+                              language.name,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     );
                   },
                 ),
