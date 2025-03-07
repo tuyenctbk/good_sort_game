@@ -589,8 +589,8 @@ class _GameScreenState extends State<GameScreen>
                       feedback: Material(
                         elevation: 8,
                         child: SizedBox(
-                          width: 260,
-                          height: 160,
+                          width: 130,
+                          height: 80,
                           child: ItemWidget(item: items[index]),
                         ),
                       ),
@@ -718,11 +718,11 @@ class ItemWidget extends StatelessWidget {
       ),
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Text(
             item.name,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
               shadows: [
@@ -734,6 +734,8 @@ class ItemWidget extends StatelessWidget {
               ],
             ),
             textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ),
