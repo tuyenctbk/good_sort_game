@@ -589,8 +589,8 @@ class _GameScreenState extends State<GameScreen>
                       feedback: Material(
                         elevation: 8,
                         child: SizedBox(
-                          width: 130,
-                          height: 80,
+                          width: 260,
+                          height: 160,
                           child: ItemWidget(item: items[index]),
                         ),
                       ),
