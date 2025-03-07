@@ -396,8 +396,17 @@ class TitleScreen extends StatelessWidget {
 
 class GameScreen extends StatefulWidget {
   final Language language;
+  final int initialLevel;
+  final int initialScore;
+  final int initialStars;
 
-  const GameScreen({super.key, required this.language});
+  const GameScreen({
+    super.key,
+    required this.language,
+    this.initialLevel = 1,
+    this.initialScore = 0,
+    this.initialStars = 0,
+  });
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -405,8 +414,9 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen>
     with SingleTickerProviderStateMixin {
-  int score = 0;
-  int level = 1;
+  late int score;
+  late int level;
+  late int stars;
   int timeLeft = GameConstants.baseTimePerLevel;
   bool isGameOver = false;
   Timer? _timer;
@@ -415,12 +425,16 @@ class _GameScreenState extends State<GameScreen>
   List<Item> sortedItems = [];
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
-  int stars = 0;
   final SoundManager _soundManager = SoundManager();
 
   @override
   void initState() {
     super.initState();
+    // Initialize state with passed values
+    score = widget.initialScore;
+    level = widget.initialLevel;
+    stars = widget.initialStars;
+
     _controller = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
@@ -662,11 +676,19 @@ class _GameScreenState extends State<GameScreen>
               if (selectedLanguage != null &&
                   selectedLanguage.code != widget.language.code) {
                 if (context.mounted) {
+                  // Cancel timer and dispose sound manager before navigation
+                  _timer?.cancel();
+                  _soundManager.dispose();
+
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          GameScreen(language: selectedLanguage),
+                      builder: (context) => GameScreen(
+                        language: selectedLanguage,
+                        initialLevel: level, // Pass current level
+                        initialScore: score, // Pass current score
+                        initialStars: stars, // Pass current stars
+                      ),
                     ),
                   );
                 }
