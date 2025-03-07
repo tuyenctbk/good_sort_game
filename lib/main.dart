@@ -137,62 +137,49 @@ class LanguageSelectionScreen extends StatelessWidget {
               const SizedBox(height: 40),
               SizedBox(
                 height: 400,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    for (int i = 0;
-                        i < LanguageConstants.supportedLanguages.length;
-                        i++)
-                      Positioned(
-                        left: 200 +
-                            150 *
-                                cos(2 *
-                                    pi *
-                                    i /
-                                    LanguageConstants
-                                        .supportedLanguages.length),
-                        top: 200 +
-                            150 *
-                                sin(2 *
-                                    pi *
-                                    i /
-                                    LanguageConstants
-                                        .supportedLanguages.length),
-                        child: Transform.rotate(
-                          angle: 2 *
-                              pi *
-                              i /
-                              LanguageConstants.supportedLanguages.length,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => TitleScreen(
-                                      language: LanguageConstants
-                                          .supportedLanguages[i]),
-                                ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 16),
-                              backgroundColor: Colors.white,
-                              foregroundColor: Colors.blue.shade700,
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: LanguageConstants.supportedLanguages.length,
+                  itemBuilder: (context, index) {
+                    final language =
+                        LanguageConstants.supportedLanguages[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Transform.rotate(
+                        angle: sin(index * 0.2) *
+                            0.1, // Subtle rotation for visual interest
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    TitleScreen(language: language),
                               ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 32, vertical: 20),
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.blue.shade700,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Text(
-                              LanguageConstants.supportedLanguages[i].name,
-                              style: const TextStyle(fontSize: 20),
-                              textAlign: TextAlign.center,
+                          ),
+                          child: Text(
+                            language.name,
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                  ],
+                    );
+                  },
                 ),
               ),
             ],
