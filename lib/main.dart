@@ -135,35 +135,63 @@ class LanguageSelectionScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               const SizedBox(height: 40),
-              ...LanguageConstants.supportedLanguages.map((language) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TitleScreen(language: language),
+              SizedBox(
+                height: 400,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: LanguageConstants.supportedLanguages.length,
+                  itemBuilder: (context, index) {
+                    final language =
+                        LanguageConstants.supportedLanguages[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Transform.rotate(
+                        angle: index *
+                            (2 *
+                                pi /
+                                LanguageConstants.supportedLanguages.length),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    TitleScreen(language: language),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 16),
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.blue.shade700,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                language.icon,
+                                size: 32,
+                                color: Colors.blue.shade700,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                language.name,
+                                style: const TextStyle(fontSize: 20),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 15),
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.blue.shade700,
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
                       ),
-                    ),
-                    child: Text(
-                      language.name,
-                      style: const TextStyle(fontSize: 24),
-                    ),
-                  ),
-                );
-              }).toList(),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -885,26 +913,108 @@ class ItemWidget extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          child: Text(
-            item.name,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.blue.shade700,
-              shadows: [
-                Shadow(
-                  offset: const Offset(1, 1),
-                  blurRadius: 2,
-                  color: Colors.black26,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                _getIconForItem(item.name),
+                size: 24,
+                color: Colors.blue.shade700,
+              ),
+              const SizedBox(height: 4),
+              Flexible(
+                child: Text(
+                  item.name,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue.shade700,
+                    shadows: [
+                      Shadow(
+                        offset: const Offset(1, 1),
+                        blurRadius: 2,
+                        color: Colors.black26,
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ],
-            ),
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
         ),
       ),
     );
+  }
+
+  IconData _getIconForItem(String itemName) {
+    // Add icons based on item categories
+    if (itemName.toLowerCase().contains('circle') ||
+        itemName.toLowerCase().contains('square') ||
+        itemName.toLowerCase().contains('triangle') ||
+        itemName.toLowerCase().contains('rectangle') ||
+        itemName.toLowerCase().contains('star') ||
+        itemName.toLowerCase().contains('heart') ||
+        itemName.toLowerCase().contains('diamond') ||
+        itemName.toLowerCase().contains('oval')) {
+      return Icons.shape_line;
+    } else if (itemName.toLowerCase().contains('red') ||
+        itemName.toLowerCase().contains('blue') ||
+        itemName.toLowerCase().contains('green') ||
+        itemName.toLowerCase().contains('yellow') ||
+        itemName.toLowerCase().contains('purple') ||
+        itemName.toLowerCase().contains('orange') ||
+        itemName.toLowerCase().contains('pink') ||
+        itemName.toLowerCase().contains('brown')) {
+      return Icons.palette;
+    } else if (itemName.toLowerCase().contains('one') ||
+        itemName.toLowerCase().contains('two') ||
+        itemName.toLowerCase().contains('three') ||
+        itemName.toLowerCase().contains('four') ||
+        itemName.toLowerCase().contains('five') ||
+        itemName.toLowerCase().contains('six') ||
+        itemName.toLowerCase().contains('seven') ||
+        itemName.toLowerCase().contains('eight')) {
+      return Icons.numbers;
+    } else if (itemName.toLowerCase().contains('dog') ||
+        itemName.toLowerCase().contains('cat') ||
+        itemName.toLowerCase().contains('bird') ||
+        itemName.toLowerCase().contains('fish') ||
+        itemName.toLowerCase().contains('lion') ||
+        itemName.toLowerCase().contains('elephant') ||
+        itemName.toLowerCase().contains('giraffe') ||
+        itemName.toLowerCase().contains('penguin')) {
+      return Icons.pets;
+    } else if (itemName.toLowerCase().contains('apple') ||
+        itemName.toLowerCase().contains('banana') ||
+        itemName.toLowerCase().contains('bread') ||
+        itemName.toLowerCase().contains('milk') ||
+        itemName.toLowerCase().contains('egg') ||
+        itemName.toLowerCase().contains('rice') ||
+        itemName.toLowerCase().contains('pizza') ||
+        itemName.toLowerCase().contains('ice cream')) {
+      return Icons.restaurant;
+    } else if (itemName.toLowerCase().contains('car') ||
+        itemName.toLowerCase().contains('bus') ||
+        itemName.toLowerCase().contains('train') ||
+        itemName.toLowerCase().contains('bike') ||
+        itemName.toLowerCase().contains('plane') ||
+        itemName.toLowerCase().contains('boat') ||
+        itemName.toLowerCase().contains('truck') ||
+        itemName.toLowerCase().contains('helicopter')) {
+      return Icons.directions_car;
+    } else if (itemName.toLowerCase().contains('ball') ||
+        itemName.toLowerCase().contains('doll') ||
+        itemName.toLowerCase().contains('teddy') ||
+        itemName.toLowerCase().contains('blocks') ||
+        itemName.toLowerCase().contains('puzzle') ||
+        itemName.toLowerCase().contains('robot') ||
+        itemName.toLowerCase().contains('kite')) {
+      return Icons.toys;
+    } else {
+      return Icons.category;
+    }
   }
 }
