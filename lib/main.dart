@@ -17,9 +17,34 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Good Sort Game',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
         fontFamily: 'Comic Sans MS',
+        textTheme: const TextTheme(
+          headlineLarge: TextStyle(
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                offset: Offset(2, 2),
+                blurRadius: 3,
+                color: Colors.black26,
+              ),
+            ],
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 24,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                offset: Offset(1, 1),
+                blurRadius: 2,
+                color: Colors.black26,
+              ),
+            ],
+          ),
+        ),
       ),
       home: const LanguageSelectionScreen(),
     );
@@ -38,8 +63,8 @@ class LanguageSelectionScreen extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.green.shade300,
               Colors.blue.shade300,
+              Colors.purple.shade300,
             ],
           ),
         ),
@@ -47,26 +72,24 @@ class LanguageSelectionScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.sort,
-                size: 80,
-                color: Colors.white,
+              TweenAnimationBuilder<double>(
+                tween: Tween(begin: 0.0, end: 1.0),
+                duration: const Duration(seconds: 1),
+                builder: (context, value, child) {
+                  return Transform.scale(
+                    scale: value,
+                    child: const Icon(
+                      Icons.sort,
+                      size: 100,
+                      color: Colors.white,
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 20),
               Text(
                 LanguageConstants.translations['en']!['selectLanguage']!,
-                style: const TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
-                      offset: Offset(2, 2),
-                      blurRadius: 3,
-                      color: Colors.black26,
-                    ),
-                  ],
-                ),
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
               const SizedBox(height: 40),
               ...LanguageConstants.supportedLanguages.map((language) {
@@ -85,7 +108,7 @@ class LanguageSelectionScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40, vertical: 15),
                       backgroundColor: Colors.white,
-                      foregroundColor: Colors.green.shade700,
+                      foregroundColor: Colors.blue.shade700,
                       elevation: 5,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -431,7 +454,20 @@ class _GameScreenState extends State<GameScreen>
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            '${LanguageConstants.translations[widget.language.code]!['level']!} $level'),
+          '${LanguageConstants.translations[widget.language.code]!['level']!} $level',
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                offset: Offset(1, 1),
+                blurRadius: 2,
+                color: Colors.black26,
+              ),
+            ],
+          ),
+        ),
         backgroundColor: Colors.blue.shade300,
         elevation: 0,
         leading: IconButton(
@@ -443,7 +479,9 @@ class _GameScreenState extends State<GameScreen>
         actions: [
           IconButton(
             icon: Icon(
-                _soundManager.isMuted ? Icons.volume_off : Icons.volume_up),
+              _soundManager.isMuted ? Icons.volume_off : Icons.volume_up,
+              color: Colors.white,
+            ),
             onPressed: () {
               setState(() {
                 _soundManager.toggleMute();
@@ -486,13 +524,14 @@ class _GameScreenState extends State<GameScreen>
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.star, color: Colors.amber, size: 28),
+                        const Icon(Icons.star, color: Colors.amber, size: 32),
                         const SizedBox(width: 8),
                         Text(
                           '$score',
                           style: const TextStyle(
-                            fontSize: 28,
+                            fontSize: 32,
                             fontWeight: FontWeight.bold,
+                            color: Colors.blue,
                           ),
                         ),
                       ],
@@ -516,13 +555,13 @@ class _GameScreenState extends State<GameScreen>
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.timer, color: Colors.white, size: 28),
+                        const Icon(Icons.timer, color: Colors.white, size: 32),
                         const SizedBox(width: 8),
                         Text(
                           '$timeLeft',
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 28,
+                            fontSize: 32,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -537,9 +576,9 @@ class _GameScreenState extends State<GameScreen>
                 padding: const EdgeInsets.all(24),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  childAspectRatio: 1.2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
+                  childAspectRatio: 1.5,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
                 ),
                 itemCount: items.length,
                 itemBuilder: (context, index) {
@@ -547,11 +586,21 @@ class _GameScreenState extends State<GameScreen>
                     scale: _scaleAnimation,
                     child: Draggable<Item>(
                       data: items[index],
-                      feedback: ItemWidget(item: items[index]),
+                      feedback: Material(
+                        elevation: 8,
+                        child: SizedBox(
+                          width: 130,
+                          height: 80,
+                          child: ItemWidget(item: items[index]),
+                        ),
+                      ),
                       childWhenDragging: Container(
+                        margin: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
                           color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(16),
+                          border:
+                              Border.all(color: Colors.blue.shade300, width: 3),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.1),
@@ -575,13 +624,28 @@ class _GameScreenState extends State<GameScreen>
                 children: categories.map((category) {
                   return DragTarget<Item>(
                     builder: (context, candidates, rejects) {
-                      return Container(
-                        width: 110,
+                      final isCorrect = candidates.isNotEmpty &&
+                          candidates.first?.category == category.name;
+                      final isWrong = candidates.isNotEmpty &&
+                          candidates.first?.category != category.name;
+
+                      return AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        width: 130,
+                        height: 80,
                         decoration: BoxDecoration(
-                          color: category.color.withOpacity(0.2),
+                          color: isCorrect
+                              ? Colors.green.withOpacity(0.3)
+                              : isWrong
+                                  ? Colors.red.withOpacity(0.3)
+                                  : Colors.blue.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: category.color,
+                            color: isCorrect
+                                ? Colors.green
+                                : isWrong
+                                    ? Colors.red
+                                    : Colors.blue,
                             width: 3,
                           ),
                           boxShadow: [
@@ -594,13 +658,17 @@ class _GameScreenState extends State<GameScreen>
                         ),
                         child: Center(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(12.0),
                             child: Text(
                               category.name,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                                color: category.color.withOpacity(0.8),
+                                color: isCorrect
+                                    ? Colors.green.shade700
+                                    : isWrong
+                                        ? Colors.red.shade700
+                                        : Colors.blue.shade700,
                                 shadows: [
                                   Shadow(
                                     offset: const Offset(1, 1),
@@ -635,10 +703,11 @@ class ItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade300, width: 2),
+        border: Border.all(color: Colors.blue.shade300, width: 3),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -649,15 +718,16 @@ class ItemWidget extends StatelessWidget {
       ),
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Text(
             item.name,
-            style: const TextStyle(
-              fontSize: 22,
+            style: TextStyle(
+              fontSize: 20,
               fontWeight: FontWeight.bold,
+              color: Colors.blue.shade700,
               shadows: [
                 Shadow(
-                  offset: Offset(1, 1),
+                  offset: const Offset(1, 1),
                   blurRadius: 2,
                   color: Colors.black26,
                 ),
